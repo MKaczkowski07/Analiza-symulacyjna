@@ -11,5 +11,5 @@ PKBKraju <- dane3[, 1:2]
 dane4 <- read_excel("Direct-taxes.xlsx", skip = 5, col_names = FALSE, sheet="Table 13")
 AkcyzaPKB <- dane4[, c(1,5)] #akcyza jako porcent pkb kraju
 AkcyzaPKB <- AkcyzaPKB[1:(nrow(AkcyzaPKB) - 6), ]
-Kraje=intersect(OdesetekPalcy$Country, )s
+Kraje=intersect(OdesetekPalcy$Country, )
 
