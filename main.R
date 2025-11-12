@@ -18,11 +18,15 @@ Kraje <- intersect(
   intersect(PKBKraju$Country, AkcyzaPKB$Country)
 )
 
-Kraje=intersect(OdesetekPalcy$Country, )
+Kraje <- Reduce(intersect, list(
+  OdsetekPalacy$Country,
+  PopulacjaKraju$Country,
+  PKBKraju$Country,
+  AkcyzaPKB$Country
+))
 
 
-
-OdsetekPalacy <- OdsetekPalacy[OdsetekPalacy$Country %in% Kraje, ]
+OdsetekPalacy<-OdsetekPalacy[OdsetekPalacy$Country %in% Kraje, ]
 PopulacjaKraju <- PopulacjaKraju[PopulacjaKraju$Country %in% Kraje, ]
 PKBKraju <- PKBKraju[PKBKraju$Country %in% Kraje, ]
 AkcyzaPKB <- AkcyzaPKB[AkcyzaPKB$Country %in% Kraje, ]
@@ -44,4 +48,4 @@ DanePolaczone <- data.frame(
   PKB_per_capita = PKBKraju[[2]],
   Akcyza_procent_PKB = AkcyzaPKB[[2]]
 )
-print("")
+
