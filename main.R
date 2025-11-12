@@ -82,6 +82,7 @@ print(wyniki_korelacji)
 model <- lm(Smokers ~ GDP_per_capita + Excise_share_GDP, data = dane_final)
 summary(model)
 
+ggpairs(dane_final[, c("Smokers","GDP_per_capita","Excise_share_GDP")])
 
 #5
 mapa <- ne_countries(continent = "Europe", returnclass = "sf")
