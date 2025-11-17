@@ -1,6 +1,7 @@
 library(readxl)
 library(dplyr)
 library(ggplot2)
+library(GGally)             #4
 library(rnaturalearth)      #5
 library(rnaturalearthdata)  #5
 
@@ -81,6 +82,8 @@ print(wyniki_korelacji)
 #.4 Anliza wieloraka
 model <- lm(Smokers ~ GDP_per_capita + Excise_share_GDP, data = dane_final)
 summary(model)
+
+ggpairs(dane_final[, c("Smokers","GDP_per_capita","Excise_share_GDP")])
 
 
 #5
