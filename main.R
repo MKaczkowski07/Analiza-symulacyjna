@@ -1,9 +1,9 @@
 library(readxl)
 library(dplyr)
 library(ggplot2)
-library(GGally)             #4
-library(rnaturalearth)      #5
-library(rnaturalearthdata)  #5
+library(GGally)
+library(rnaturalearth)
+library(rnaturalearthdata)
 
 # ---- 1. Wczytanie danych ----
 dane1 <- read_excel("Tobacco_consumption_HLTH2022-2.xlsx", sheet = "T1")
@@ -25,24 +25,47 @@ AkcyzaPKB <- dane4[, c(1, 5)]
 AkcyzaPKB <- AkcyzaPKB[1:(nrow(AkcyzaPKB) - 6), ]
 names(AkcyzaPKB) <- c("Country", "Excise_share_GDP")
 
+dane5 <- read_excel("hlth_sha11_hf$defaultview_spreadsheet.xlsx", sheet="Sheet 1", col_names = FALSE, skip = 18)
+WydatkiMedyczne <- dane5[, c(1,10)] %>%
+  rename(Country = 1, Wydatki_na_medycyne = 2)
+
+library(rvest)
+library(dplyr)
+url <- "https://taxfoundation.org/data/all/eu/cigarette-tax-europe-2019/"
+page <- read_html(url)
+dane6 <- page %>% html_table(fill = TRUE)
+length(dane6)
+Akcyza <- dane6[[1]]
+Akcyza <- Akcyza[-c(1:3, nrow(Akcyza)), ]
+Akcyza <- Akcyza[,c(1:2)]
+names(Akcyza) <- c("Country", "Akcyza")
+Akcyza$Country <- sub(" .*", "", Akcyza$Country)
+Akcyza$Akcyza <- gsub("[^0-9.]", "", Akcyza$Akcyza)
+Akcyza$Akcyza <- as.numeric(Akcyza$Akcyza)
+
+
+
+
 # ---- 2. Ujednolicenie krajów i połączenie ----
-kraje <- Reduce(intersect, list(OdsetekPalacy$Country, PopulacjaKraju$Country, PKBKraju$Country, AkcyzaPKB$Country))
+kraje <- Reduce(intersect, list(OdsetekPalacy$Country, PopulacjaKraju$Country, PKBKraju$Country, Akcyza$Country))
 
 dane_final <- OdsetekPalacy %>%
   filter(Country %in% kraje) %>%
   left_join(PopulacjaKraju, by = "Country") %>%
   left_join(PKBKraju, by = "Country") %>%
-  left_join(AkcyzaPKB, by = "Country")
+  left_join(Akcyza, by = "Country") %>%
+  left_join(WydatkiMedyczne, by = "Country")
+
 
 head(dane_final)
-
+rm(dane1,dane2,dane3,dane4,dane5,dane6)
 # ==============================================================================
 
 #1. Korelacja: akcyza – PKB per capita
-cor1 <- cor(dane_final$Excise_share_GDP, dane_final$GDP_per_capita, use="complete.obs")
+cor1 <- cor(dane_final$Akcyza, dane_final$GDP_per_capita, use="complete.obs")
 cat("Korelacja (akcyza vs PKB per capita):", round(cor1, 3), "\n")
 
-ggplot(dane_final, aes(x = GDP_per_capita, y = Excise_share_GDP)) +
+ggplot(dane_final, aes(x = GDP_per_capita, y = Akcyza)) +
   geom_point(color = "black") +
   geom_smooth(method = "lm", se = FALSE, color = "blue") +
   labs(title = paste0("Akcyza a PKB per capita (r = ", round(cor1, 2), ")"),
@@ -51,13 +74,13 @@ ggplot(dane_final, aes(x = GDP_per_capita, y = Excise_share_GDP)) +
 
 
 #2. Korelacja: akcyza – odsetek palaczy
-ggplot(dane_final, aes(x = Excise_share_GDP, y = Smokers)) +
+ggplot(dane_final, aes(x = Akcyza, y = Smokers)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE, color = "blue") +
   labs(title = "Czy akcyza wpływa na poziom palenia?",
        x = "Udział akcyzy w PKB (%)",
        y = "Odsetek palących (%)")
-
+cor2 <- cor(dane_final$Akcyza, dane_final$Smokers, use = "complete.obs")
 #3. Korelacja: PKB per capita – odsetek palaczy
 cor3 <- cor(dane_final$GDP_per_capita, dane_final$Smokers, use="complete.obs")
 cat("Korelacja (PKB per capita vs palenie):", round(cor3, 3), "\n")
@@ -68,6 +91,21 @@ ggplot(dane_final, aes(x = GDP_per_capita, y = Smokers)) +
   labs(title = paste0("Zamożność a palenie (r = ", round(cor3, 2), ")"),
        x = "PKB per capita (USD)", y = "Odsetek palących (%)") +
   theme_minimal()
+
+#4 Korelacja Wydatki na medycyne na obywatela a odsetek palaczy
+dane_final$Wydatki_na_medycyne <- as.numeric(dane_final$Wydatki_na_medycyne)
+cor4 <- cor((dane_final$Wydatki_na_medycyne/dane_final$Population), dane_final$Smokers, use = "complete.obs")
+cor4
+
+#5 Korelacja Wydatki na medycyne na obywatela a odsetek palaczy
+dane_final$Wydatki_na_medycyne <- as.numeric(dane_final$Wydatki_na_medycyne)
+cor5 <- cor(dane_final$GDP_per_capita,(dane_final$Wydatki_na_medycyne/dane_final$Population), use = "complete.obs")
+cor5
+
+
+dane_final$Wydatki_na_medycyne <- as.numeric(dane_final$Wydatki_na_medycyne)
+cor5 <- cor(dane_final$GDP_per_capita,(dane_final$Wydatki_na_medycyne/dane_final$Population), use = "complete.obs")
+cor5
 
 
 # Zbiorczo
@@ -80,10 +118,10 @@ print(wyniki_korelacji)
 
 
 #.4 Anliza wieloraka
-model <- lm(Smokers ~ GDP_per_capita + Excise_share_GDP, data = dane_final)
+model <- lm(Smokers ~ GDP_per_capita + Akcyza, data = dane_final)
 summary(model)
 
-ggpairs(dane_final[, c("Smokers","GDP_per_capita","Excise_share_GDP")])
+ggpairs(dane_final[, c("Smokers","GDP_per_capita","Akcyza")])
 
 
 #5
@@ -99,7 +137,7 @@ ggplot(dane_map) +
 #5A Mapa odsetka palących:
 dane_map2 <- merge(mapa, dane_final, by.x = "name", by.y = "Country")
 
-#5B Mapa PKB per capita 
+#5B Mapa PKB per capita
 ggplot(dane_map2) +
   geom_sf(aes(fill = GDP_per_capita)) +
   scale_fill_viridis_c(option = "B", trans = "log") +
@@ -108,7 +146,7 @@ ggplot(dane_map2) +
 
 #5C Mapa różnice regionalne akcyzy
 ggplot(dane_map2) +
-  geom_sf(aes(fill = Excise_share_GDP)) +
+  geom_sf(aes(fill = Akcyza)) +
   scale_fill_viridis_c(option = "A") +
   labs(title = "Udział akcyzy w PKB (%)", fill = "Akcyza % PKB") +
   theme_minimal()

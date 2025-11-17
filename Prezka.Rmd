@@ -1,0 +1,93 @@
+---
+title: "Analiza wpływu wysokości akcyzy na wyroby tytoniowe na wydatki medyczne i pkb"
+author: "Filip Kasprzycki i Mateusz Kaczkowski"
+date: "2025-11-16"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+## Cel analizy
+Celem projektu jest analiza zależności między wielkością populacji, PKB, średnimi płacami, wydatkami publicznymi i wpływami z akcyzy
+
+## Żródła danych
+
+Żródła danych:
+
+-Eurostat
+
+-Taxfoundation
+
+
+## Zebrane dane
+
+Dane zostały uszeregowane i zebrane do jednej tabeli dane_final
+Zawieraja następujące elementy:
+-Odsetek populacji danego kraju palący papierosy w %
+-Liczebność populacji danego kraju
+-PKB danego kraju
+-
+## Przykładowe dane
+
+```{r, echo=FALSE}
+##dane
+
+# ---- 1. Wczytanie danych ----
+library(readxl)
+library(dplyr)
+library(ggplot2)
+library(GGally)             
+library(rnaturalearth)      
+library(rnaturalearthdata)
+library(kableExtra)
+
+# Wczytanie danych (zakładając, że pliki znajdują się w tym samym folderze)
+dane1 <- read_excel("Tobacco_consumption_HLTH2022-2.xlsx", sheet = "T1")
+OdsetekPalacy <- dane1[, 1:2] %>%
+  arrange(.[[1]]) %>%
+  rename(Country = 1, Smokers = 2)
+
+dane2 <- read_excel("Europe_Population.xlsx")
+PopulacjaKraju <- dane2[, 1:2] %>%
+  arrange(.[[1]]) %>%
+  rename(Country = 1, Population = 2)
+
+dane3 <- read_excel("europe_gdp_per_capita_2019.xlsx")
+PKBKraju <- dane3[, 1:2] %>%
+  rename(Country = 1, GDP_per_capita = 2)
+
+dane4 <- read_excel("Direct-taxes.xlsx", skip = 5, col_names = FALSE, sheet = "Table 13")
+AkcyzaPKB <- dane4[, c(1, 5)]
+AkcyzaPKB <- AkcyzaPKB[1:(nrow(AkcyzaPKB) - 6), ]
+names(AkcyzaPKB) <- c("Country", "Excise_share_GDP")
+
+# ---- 2. Ujednolicenie krajów i połączenie ----
+kraje <- Reduce(intersect, list(OdsetekPalacy$Country, PopulacjaKraju$Country, PKBKraju$Country, AkcyzaPKB$Country))
+
+dane_final <- OdsetekPalacy %>%
+  filter(Country %in% kraje) %>%
+  left_join(PopulacjaKraju, by = "Country") %>%
+  left_join(PKBKraju, by = "Country") %>%
+  left_join(AkcyzaPKB, by = "Country")
+
+# Usuwanie tymczasowych danych
+rm(dane1, dane2, dane3, dane4)
+
+# Wyświetlenie przykładowych danych
+head(dane_final, 10) %>%
+  kable(caption = "Przykładowe dane") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+
+## Slide with R Output
+
+```{r cars, echo = TRUE}
+summary(cars)
+```
+
+
+
+
+
+
