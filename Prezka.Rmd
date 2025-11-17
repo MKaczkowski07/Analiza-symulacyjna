@@ -127,5 +127,90 @@ kable(summary_stats, caption = "Podstawowe statystyki opisowe") %>%
   column_spec(1, bold = TRUE)
 
 ```
+## Odsetek palacych
+```{r pairs_plot2, echo=FALSE}
+mapa <- ne_countries(continent = "Europe", returnclass = "sf")
+dane_map <- merge(mapa, dane_final, by.x = "name", by.y = "Country", all.x = FALSE)
+
+ggplot(dane_map) +
+  geom_sf(aes(fill = Smokers)) +
+  scale_fill_viridis_c(option = "C", name = "% palących", direction = -1) +
+  labs(title = "Odsetek palących w krajach Europy",
+       subtitle = "Ciemniejsze kolory oznaczają wyższy odsetek palących") +
+  theme_void() +
+  theme(plot.title = element_text(face = "bold", size = 16, hjust = 0.5),
+        plot.subtitle = element_text(size = 12, hjust = 0.5),
+        legend.position = "right")
+```
+
+## Korelacja
+```{r wyswietlanie3 , include=TRUE}
+cor3 <- cor(dane_final$GDP_per_capita, dane_final$Smokers, use="complete.obs")
+dane_final$Wydatki_per_capita <- dane_final$Wydatki_na_medycyne / dane_final$Population
+cor4 <- cor(dane_final$Wydatki_per_capita, dane_final$Smokers, use = "complete.obs")
+
+# DODATKOWE KORELACJE
+cor5 <- cor(dane_final$GDP_per_capita, dane_final$Wydatki_per_capita, use = "complete.obs")
+cor6 <- cor(dane_final$Akcyza, dane_final$Wydatki_per_capita, use = "complete.obs")
+cor7 <- cor(dane_final$Population, dane_final$Smokers, use = "complete.obs")
+cor8 <- cor(dane_final$Population, dane_final$Akcyza, use = "complete.obs")
+cor9 <- cor(dane_final$Wydatki_na_medycyne, dane_final$Smokers, use = "complete.obs")
+
+wyniki_korelacji <- data.frame(
+  `Zmienna X` = c("Akcyza", "Akcyza", "Akcyza", "PKB per capita", "PKB per capita", "PKB per capita", "Wydatki medyczne per capita", "Liczba ludności", "Liczba ludności", "Wydatki medyczne całkowite"),
+  `Zmienna Y` = c("PKB per capita", "Odsetek palących", "Wydatki medyczne per capita", "Odsetek palących", "Wydatki medyczne per capita", "Odsetek palących", "Odsetek palących", "Odsetek palących", "Akcyza", "Odsetek palących"),
+  `Współczynnik korelacji` = round(c(cor1, cor2, cor6, cor3, cor5, cor3, cor4, cor7, cor8, cor9), 3),
+  `Siła korelacji` = c(
+    ifelse(abs(cor1) > 0.5, "Silna", ifelse(abs(cor1) > 0.3, "Umiarkowana", "Słaba")),
+    ifelse(abs(cor2) > 0.5, "Silna", ifelse(abs(cor2) > 0.3, "Umiarkowana", "Słaba")),
+    ifelse(abs(cor6) > 0.5, "Silna", ifelse(abs(cor6) > 0.3, "Umiarkowana", "Słaba")),
+    ifelse(abs(cor3) > 0.5, "Silna", ifelse(abs(cor3) > 0.3, "Umiarkowana", "Słaba")),
+    ifelse(abs(cor5) > 0.5, "Silna", ifelse(abs(cor5) > 0.3, "Umiarkowana", "Słaba")),
+    ifelse(abs(cor3) > 0.5, "Silna", ifelse(abs(cor3) > 0.3, "Umiarkowana", "Słaba")),
+    ifelse(abs(cor4) > 0.5, "Silna", ifelse(abs(cor4) > 0.3, "Umiarkowana", "Słaba")),
+    ifelse(abs(cor7) > 0.5, "Silna", ifelse(abs(cor7) > 0.3, "Umiarkowana", "Słaba")),
+    ifelse(abs(cor8) > 0.5, "Silna", ifelse(abs(cor8) > 0.3, "Umiarkowana", "Słaba")),
+    ifelse(abs(cor9) > 0.5, "Silna", ifelse(abs(cor9) > 0.3, "Umiarkowana", "Słaba"))
+  )
+)
+
+kable(wyniki_korelacji, caption = "Rozszerzona macierz korelacji między zmiennymi") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"), 
+                full_width = FALSE,
+                font_size = 12) %>%
+  row_spec(0, background = "#8e44ad", color = "white") %>%
+  column_spec(4, color = ifelse(abs(c(cor1, cor2, cor6, cor3, cor5, cor3, cor4, cor7, cor8, cor9)) > 0.5, "#e74c3c", 
+                               ifelse(abs(c(cor1, cor2, cor6, cor3, cor5, cor3, cor4, cor7, cor8, cor9)) > 0.3, "#f39c12", "#27ae60")))
+```
+
+## Wizualizacja zależności wielowymiarowych
+
+```{r pairs_plot, echo=FALSE}
+ggpairs(dane_final[, c("Smokers", "GDP_per_capita", "Akcyza", "Wydatki_per_capita")],
+        upper = list(continuous = wrap("cor", size = 3)),
+        lower = list(continuous = wrap("points", alpha = 0.6, size = 1.5)),
+        diag = list(continuous = wrap("barDiag", fill = "#3498db", alpha = 0.7))) +
+  theme_minimal(base_size = 10) +
+  theme(panel.background = element_rect(fill = "white"))
+```
+## Analiza regresji
+```{r pairs_plot1, echo=FALSE}
+model <- lm(Smokers ~ GDP_per_capita + Akcyza + Wydatki_per_capita, data = dane_final)
+
+results_df <- data.frame(
+  Parametr = c("(Intercept)", "PKB per capita", "Akcyza", "Wydatki medyczne per capita"),
+  Szacunek = round(coef(model), 3),
+  `Błąd standardowy` = round(summary(model)$coefficients[,2], 3),
+  `p-value` = round(summary(model)$coefficients[,4], 4),
+  `Istotność` = ifelse(summary(model)$coefficients[,4] < 0.05, "***", 
+                      ifelse(summary(model)$coefficients[,4] < 0.1, "**", ""))
+)
+
+kable(results_df, caption = "Wyniki regresji liniowej - Czynniki wpływające na odsetek palących") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"), 
+                full_width = FALSE) %>%
+  row_spec(0, background = "#e74c3c", color = "white") %>%
+  row_spec(2:4, background = "#fdf2f2")
+```
 
 

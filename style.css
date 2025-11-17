@@ -54,7 +54,7 @@ a:hover {
 
 /* --- STOPKA (opcjonalna) --- */
 slides > slide:not(.title-slide)::after {
-    content: "Analiza akcyzy — prezentacja finansowa";
+    content: "Analiza akcyzy — Filip Kasprzycki Mateusz Kaczkowski";
     position: absolute;
     bottom: 10px;
     right: 15px;
