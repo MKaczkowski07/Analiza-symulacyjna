@@ -4154,70 +4154,6 @@ span.underline{text-decoration: underline;}
 div.column{display: inline-block; vertical-align: top; width: 50%;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-{ counter-reset: source-line 0; }
-pre.numberSource code > span
-{ position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-{ content: counter(source-line);
-position: relative; left: -1em; text-align: right; vertical-align: baseline;
-border: none; display: inline-block;
--webkit-touch-callout: none; -webkit-user-select: none;
--khtml-user-select: none; -moz-user-select: none;
--ms-user-select: none; user-select: none;
-padding: 0 4px; width: 4em;
-color: #aaaaaa;
-}
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
-div.sourceCode
-{ }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } 
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
-code span.at { color: #7d9029; } 
-code span.bn { color: #40a070; } 
-code span.bu { color: #008000; } 
-code span.cf { color: #007020; font-weight: bold; } 
-code span.ch { color: #4070a0; } 
-code span.cn { color: #880000; } 
-code span.co { color: #60a0b0; font-style: italic; } 
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
-code span.do { color: #ba2121; font-style: italic; } 
-code span.dt { color: #902000; } 
-code span.dv { color: #40a070; } 
-code span.er { color: #ff0000; font-weight: bold; } 
-code span.ex { } 
-code span.fl { color: #40a070; } 
-code span.fu { color: #06287e; } 
-code span.im { color: #008000; font-weight: bold; } 
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
-code span.kw { color: #007020; font-weight: bold; } 
-code span.op { color: #666666; } 
-code span.ot { color: #007020; } 
-code span.pp { color: #bc7a00; } 
-code span.sc { color: #4070a0; } 
-code span.ss { color: #bb6688; } 
-code span.st { color: #4070a0; } 
-code span.va { color: #19177c; } 
-code span.vs { color: #4070a0; } 
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 
 
@@ -4245,9 +4181,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; }
 
 <p>Żródła danych:</p>
 
-<p>-Eurostat</p>
+<p>-Eurostat (w postaci plików xslx)</p>
 
-<p>-Taxfoundation</p>
+<p>-Taxfoundation (pobierane bezpośrednio ze strony)</p>
+
+</article></slide><slide class=""><hgroup><h2>Zebrane dane</h2></hgroup><article  id="zebrane-dane">
+
+<p>Dane zostały uszeregowane i zebrane do jednej tabeli dane_final Zawieraja następujące elementy</p>
+
+<p>-Odsetek populacji danego kraju palący papierosy w %</p>
+
+<p>-Liczebność populacji danego kraju</p>
+
+<p>-PKB danego kraju</p>
+
+<p>-Wysokośc akcyzy nakładanej na paczke papierosów</p>
+
+<p>-Wydatki roczne w mln na opiekę medyczną</p>
 
 </article></slide><slide class=""><hgroup><h2>Przykładowe dane</h2></hgroup><article  id="przykładowe-dane">
 
@@ -4289,7 +4239,13 @@ GDP_per_capita
 
 <th style="text-align:right;">
 
-Excise_share_GDP
+Akcyza
+
+</th>
+
+<th style="text-align:right;">
+
+Wydatki_na_medycyne
 
 </th>
 
@@ -4327,7 +4283,13 @@ Austria
 
 <td style="text-align:right;">
 
-13.830789
+2.95
+
+</td>
+
+<td style="text-align:right;">
+
+42045.05
 
 </td>
 
@@ -4361,7 +4323,13 @@ Belgium
 
 <td style="text-align:right;">
 
-17.634285
+3.77
+
+</td>
+
+<td style="text-align:right;">
+
+52059.64
 
 </td>
 
@@ -4395,7 +4363,13 @@ Bulgaria
 
 <td style="text-align:right;">
 
-5.488708
+1.76
+
+</td>
+
+<td style="text-align:right;">
+
+4364.00
 
 </td>
 
@@ -4429,7 +4403,13 @@ Croatia
 
 <td style="text-align:right;">
 
-6.707524
+2.04
+
+</td>
+
+<td style="text-align:right;">
+
+3785.01
 
 </td>
 
@@ -4463,41 +4443,13 @@ Cyprus
 
 <td style="text-align:right;">
 
-10.365616
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-Czechia
+2.57
 
 </td>
 
 <td style="text-align:right;">
 
-19.3
-
-</td>
-
-<td style="text-align:right;">
-
-10649800
-
-</td>
-
-<td style="text-align:right;">
-
-7780
-
-</td>
-
-<td style="text-align:right;">
-
-7.662674
+1637.70
 
 </td>
 
@@ -4531,7 +4483,13 @@ Denmark
 
 <td style="text-align:right;">
 
-32.906420
+3.23
+
+</td>
+
+<td style="text-align:right;">
+
+31424.46
 
 </td>
 
@@ -4565,7 +4523,13 @@ Estonia
 
 <td style="text-align:right;">
 
-7.260282
+2.62
+
+</td>
+
+<td style="text-align:right;">
+
+1892.72
 
 </td>
 
@@ -4599,7 +4563,13 @@ Finland
 
 <td style="text-align:right;">
 
-15.922373
+4.73
+
+</td>
+
+<td style="text-align:right;">
+
+21998.37
 
 </td>
 
@@ -4633,7 +4603,13 @@ France
 
 <td style="text-align:right;">
 
-13.010995
+5.24
+
+</td>
+
+<td style="text-align:right;">
+
+271691.66
 
 </td>
 
@@ -4643,27 +4619,93 @@ France
 
 </table>
 
-<pre class = 'prettyprint lang-r'>summary(cars)</pre>
+</article></slide><slide class=""><hgroup><h2>Kolejny slajd</h2></hgroup><article  id="kolejny-slajd">
 
-<pre >##      speed           dist       
-##  Min.   : 4.0   Min.   :  2.00  
-##  1st Qu.:12.0   1st Qu.: 26.00  
-##  Median :15.0   Median : 36.00  
-##  Mean   :15.4   Mean   : 42.98  
-##  3rd Qu.:19.0   3rd Qu.: 56.00  
-##  Max.   :25.0   Max.   :120.00</pre>
+<table class="table table-striped table-hover" style="color: black; width: auto !important; margin-left: auto; margin-right: auto;">
 
-</article></slide><slide class=""><hgroup><h2>Slide with Plot</h2></hgroup><article  id="slide-with-plot">
+<caption>
 
-<p><img src="data:image/png;base64,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" width="720" /></p>
+Podstawowe statystyki opisowe
 
-</article></slide><slide class=""><hgroup><h2>o DANYCH - Europe_population</h2></hgroup><article  id="o-danych---europe_population">
+</caption>
 
-<p>DANE POCHODZĄ Z EUROSTATU -Zawierają infomacje o populacji kraji europejskich.</p>
+<thead>
 
-</article></slide><slide class=""><hgroup><h2>o DANYCH europe_gdp_per_capita2019</h2></hgroup><article  id="o-danych-europe_gdp_per_capita2019">
+<tr>
 
-<p>Dane te pochodzą z eurostatu i zawierają informacje na odnoście PKB w krajac europejskich na rok 2019</p></article></slide>
+<th style="text-align:right;color: white !important;background-color: rgba(52, 152, 219, 255) !important;">
+
+Liczba krajów
+
+</th>
+
+<th style="text-align:right;color: white !important;background-color: rgba(52, 152, 219, 255) !important;">
+
+Średni odsetek palących (%)
+
+</th>
+
+<th style="text-align:right;color: white !important;background-color: rgba(52, 152, 219, 255) !important;">
+
+Średnie PKB per capita (USD)
+
+</th>
+
+<th style="text-align:right;color: white !important;background-color: rgba(52, 152, 219, 255) !important;">
+
+Średnia akcyza (EUR)
+
+</th>
+
+<th style="text-align:right;color: white !important;background-color: rgba(52, 152, 219, 255) !important;">
+
+Średnie wydatki medyczne
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:right;font-weight: bold;">
+
+26
+
+</td>
+
+<td style="text-align:right;">
+
+17.6
+
+</td>
+
+<td style="text-align:right;">
+
+31954
+
+</td>
+
+<td style="text-align:right;">
+
+3
+
+</td>
+
+<td style="text-align:right;">
+
+52961
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table></article></slide>
 
 
   <slide class="backdrop"></slide>
