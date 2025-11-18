@@ -1,15 +1,10 @@
 library(readxl)
 library(dplyr)
 library(ggplot2)
-<<<<<<< HEAD
-library(GGally)             #4
-library(rnaturalearth)      #5
-library(rnaturalearthdata)  #5
-=======
 library(GGally)
 library(rnaturalearth)
 library(rnaturalearthdata)
->>>>>>> 9eec4d198af78984b03c37d63bbb6bb8f014ef35
+library(rvest)
 
 # ---- 1. Wczytanie danych ----
 dane1 <- read_excel("Tobacco_consumption_HLTH2022-2.xlsx", sheet = "T1")
@@ -35,8 +30,7 @@ dane5 <- read_excel("hlth_sha11_hf$defaultview_spreadsheet.xlsx", sheet="Sheet 1
 WydatkiMedyczne <- dane5[, c(1,10)] %>%
   rename(Country = 1, Wydatki_na_medycyne = 2)
 
-library(rvest)
-library(dplyr)
+
 url <- "https://taxfoundation.org/data/all/eu/cigarette-tax-europe-2019/"
 page <- read_html(url)
 dane6 <- page %>% html_table(fill = TRUE)
@@ -123,15 +117,49 @@ wyniki_korelacji <- data.frame(
 print(wyniki_korelacji)
 
 
+
+##++++++++++++++++++ DODATEK ++++++++++++++++++++++##
+#Przygotowanie zmiennej: wydatki na medycynę per capita
+dane_final$Wydatki_na_medycyne <- as.numeric(dane_final$Wydatki_na_medycyne)
+dane_final$Health_pc <- dane_final$Wydatki_na_medycyne / dane_final$Population
+
+# --- Wykres 4: Wydatki medyczne per capita vs odsetek palaczy ---
+ggplot(dane_final, aes(x = Health_pc, y = Smokers)) +
+  geom_point(color = "black") +
+  geom_smooth(method = "lm", se = FALSE, color = "blue") +
+  labs(
+    title = paste0("Wydatki medyczne a palenie (r = ", round(cor4, 2), ")"),
+    x = "Wydatki na medycynę per capita",
+    y = "Odsetek palących (%)"
+  ) +
+  theme_minimal()
+
+# --- Wykres 5: PKB per capita vs wydatki medyczne per capita ---
+ggplot(dane_final, aes(x = GDP_per_capita, y = Health_pc)) +
+  geom_point(color = "black") +
+  geom_smooth(method = "lm", se = FALSE, color = "blue") +
+  labs(
+    title = paste0("PKB per capita a wydatki medyczne (r = ", round(cor5, 2), ")"),
+    x = "PKB per capita (USD)",
+    y = "Wydatki na medycynę per capita"
+  ) +
+  theme_minimal()
+
+#Macierz korelacji z 4 zmiennymi
+ggpairs(
+  dane_final[, c("Smokers", "GDP_per_capita", "Akcyza", "Health_pc")],
+  title = "Relacje między paleniem, PKB, akcyzą i wydatkami medycznymi"
+)
+
+##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++##
+
+
+
 #.4 Anliza wieloraka
 model <- lm(Smokers ~ GDP_per_capita + Akcyza, data = dane_final)
 summary(model)
 
-<<<<<<< HEAD
-ggpairs(dane_final[, c("Smokers","GDP_per_capita","Excise_share_GDP")])
-=======
 ggpairs(dane_final[, c("Smokers","GDP_per_capita","Akcyza")])
->>>>>>> 9eec4d198af78984b03c37d63bbb6bb8f014ef35
 
 
 #5
@@ -160,4 +188,3 @@ ggplot(dane_map2) +
   scale_fill_viridis_c(option = "A") +
   labs(title = "Udział akcyzy w PKB (%)", fill = "Akcyza % PKB") +
   theme_minimal()
-
