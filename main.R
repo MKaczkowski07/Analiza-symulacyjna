@@ -80,7 +80,7 @@ ggplot(dane_final, aes(x = Akcyza, y = Smokers)) +
   labs(title = "Czy akcyza wpływa na poziom palenia?",
        x = "Udział akcyzy w PKB (%)",
        y = "Odsetek palących (%)")
-
+cor2 <- cor(dane_final$Akcyza, dane_final$Smokers, use = "complete.obs")
 #3. Korelacja: PKB per capita – odsetek palaczy
 cor3 <- cor(dane_final$GDP_per_capita, dane_final$Smokers, use="complete.obs")
 cat("Korelacja (PKB per capita vs palenie):", round(cor3, 3), "\n")
@@ -106,7 +106,7 @@ cor5
 dane_final$Wydatki_na_medycyne <- as.numeric(dane_final$Wydatki_na_medycyne)
 cor5 <- cor(dane_final$GDP_per_capita,(dane_final$Wydatki_na_medycyne/dane_final$Population), use = "complete.obs")
 cor5
-cor2 <- cor(dane_final$Akcyza, dane_final$Smokers, use = "complete.obs")
+
 
 # Zbiorczo
 wyniki_korelacji <- data.frame(
