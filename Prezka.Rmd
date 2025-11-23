@@ -72,16 +72,151 @@ dane_final$Wydatki_na_medycyne <- as.numeric(dane_final$Wydatki_na_medycyne)
 cor1 <- cor(dane_final$Akcyza, dane_final$GDP_per_capita, use="complete.obs")
 cor2 <- cor(dane_final$Akcyza, dane_final$Smokers, use="complete.obs")
 ```
-## Cel analizy
-Celem projektu jest analiza zależności między wielkością populacji, PKB, średnimi płacami, wydatkami publicznymi i wpływami z akcyzy
+## Cel i zakres badania
+
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; border-radius: 10px; text-align: center;"><h2 style="margin: 0 0 10px 0;">Polityka fiskalna a zdrowie w Europie</h2><div style="display: inline-block; text-align: left; background: rgba(255,255,255,0.1); padding: 10px 15px; border-radius: 8px;"> <strong>Badanie:</strong> WCelem projektu jest analiza zależności między wielkością populacji, PKB, średnimi płacami, wydatkami publicznymi i wpływami z akcyzy z wyrobów tytoniowych<br> <strong>Zakres:</strong> `r nrow(dane_final)` krajów (2019)<br> <strong>Metody:</strong> Analiza korelacji i regresji </div> </div>
+
+## Wykorzystane Pakiety
+
+library(readxl) 
+
+library(dplyr)
+
+library(ggplot2)
+
+library(GGally)
+
+library(rnaturalearth)
+
+library(rnaturalearthdata)
+
+## Pakiet library(readxl) 
+
+Autorzy:Hadley Wickham, Jennifer Bryan
+
+Wybrane funkcje: 
+
+read_excel(
+  path, – ścieżka do pliku Excel\
+  sheet = NULL,  nazwa lub numer arkusza, który chcemy wczytać.\
+  range = NULL,- – zakres komórek  (np. "A1:D20")\
+  col_names = TRUE, czy pierwsza linia ma być traktowana jako nazwy kolumn\
+  col_types = NULL, - typy kolumn ("text", "numeric", "date", "logical")\
+  na = "", znak oznaczający brak danych \
+  trim_ws = TRUE,  usuwa zbędne spacje w komórkach.\
+  skip = 0, liczba wierszy do pominięcia na początku arkusza\
+  n_max = Inf, maksymalna liczba wierszy do wczytania.\
+)
+
+## Pakiet library(dplyr)
+Autorzy: Hadley Wickham, Romain François, Lionel Henry, Kirill Müller
+
+Wybrane funkcje:
+
+r
+filter(.data, ...)         # filtruje wiersze według warunku\
+select(.data, ...)         # wybiera kolumny\
+mutate(.data, ...)         # tworzy nowe kolumny\
+arrange(.data, ...)        # sortuje wiersze
+summarise(.data, ...)      # agreguje dane\
+group_by(.data, ...)       # grupuje dane\
+ungroup(.data)             # usuwa grupowanie\
+rename(.data, ...)         # zmienia nazwy kolumn\
+distinct(.data, ...)       # usuwa duplikaty wierszy\
+
+## Pakiet library(ggplot2)
+
+ggplot(data)               # inicjuje wykres\
+aes(x, y, ...)            # definiuje estetyki (mapowania)\
+geom_point()              # warstwa punktów\
+geom_line()               # warstwa linii\
+geom_bar()                # warstwa słupków\
+geom_histogram()          # warstwa histogramu\
+facet_wrap(~variable)     # panele według zmiennej\
+labs(title, x, y)         # etykiety osi i tytuł\
+theme_bw()                # motyw wykresu\
+scale_x_continuous()      # skala osi X\
+scale_y_log10()           # logarytmiczna skala Y\
+
+## Pakiet library(GGally)
+
+Autorzy: Barret Schloerke, Hadley Wickham
+
+Wybrane funkcje:
+
+r
+ggpairs(data)             # macierz wykresów rozrzutu\
+ggcorr(data)              # macierz korelacji\
+ggnostic(model)           # diagnostyka modelu\
+ggcoef(model)             # wykres współczynników modelu\
+ggnetwork(network)        # wizualizacja sieci\
+ggsurv(survfit)           # krzywe przeżycia\
+ggtable(data)             # tabela jako wykres\
+theme_grey()              # domyślny motyw\
+wrap(plot, ncol)          # opakowuje wiele wykresów\
+
+## Pakiet library(rnaturalearth)
+
+Autorzy: Andy South
+
+Wybrane funkcje:
+
+ne_countries(scale)       # dane krajów (scale: 10, 50, 110)\
+ne_states()               # dane stanów/prowincji\
+ne_coastline()            # linie brzegowe\
+ne_download(scale, type)  # pobiera dane z Natural Earth\
+ne_file_name(scale, type) # generuje nazwę pliku\
+ne_load()                 # ładuje dane z pliku\
+ne_bbox()                 # ramka ograniczająca\
+ne_find()                 # znajduje obiekty przestrzenne\
+ne_clean()                # czyści dane przestrzenne\
+
+
+## Pakiet library(rnaturalearthdata)
+
+Autorzy: Andy South
+
+Wybrane funkcje:
+
+countries110              # kraje w skali 1:110 milionów\
+countries50               # kraje w skali 1:50 milionów  \
+countries10               # kraje w skali 1:10 milionów\
+states50                  # stany w skali 1:50 milionów\
+coastline110              # linie brzegowe 1:110 milionów\
+lakes110                  # jeziora w skali 1:110 milionów\
+rivers110                 # rzeki w skali 1:110 milionów\
+
+
 
 ## Żródła danych
 
 Żródła danych:
 
 -Eurostat (w postaci plików xslx)
+```r
+dane1 <- read_excel("Tobacco_consumption_HLTH2022-2.xlsx", sheet = "T1")
+OdsetekPalacy <- dane1[, 1:2] %>%
+  arrange(.[[1]]) %>%
+  rename(Country = 1, Smokers = 2)
+```
 
 -Taxfoundation (pobierane bezpośrednio ze strony)
+
+```r
+library(rvest)
+library(dplyr)
+url <- "https://taxfoundation.org/data/all/eu/cigarette-tax-europe-2019/"
+page <- read_html(url)
+dane6 <- page %>% html_table(fill = TRUE)
+```
+## Informacje teoretyczne o danych
+
+
+- **Odsetek palących**: Eurostat - dane dotyczące konsumpcji tytoniu w populacji dorosłych
+- **Dane demograficzne**: Eurostat - liczebność populacji krajów europejskich
+- **Wskaźniki ekonomiczne**: Eurostat - PKB per capita w USD
+- **Akcyza tytoniowa**: Tax Foundation - wysokość podatku akcyzowego na paczkę papierosów
+- **Wydatki medyczne**: Eurostat - całkowite wydatki na ochronę zdrowia w mld
 
 
 ## Zebrane dane
@@ -102,12 +237,23 @@ Zawieraja następujące elementy
 ## Przykładowe dane
 ```{r wyswietlanie1 , include=TRUE}
 # Wyświetlenie przykładowych danych
-head(dane_final, 9) %>%
+head(dane_final, 6) %>%
   kable(caption = "Przykładowe dane") %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
 
 
 ```
+## Metoda analizy
+
+W analizie wykorzystano następujące metody statystyczne:
+
+1. **Analiza korelacji Pearsona** - badanie liniowych zależności między zmiennymi
+2. **Wizualizacja przestrzenna** - mapy cieplne pokazujące rozkład geograficzny zmiennych
+3. **Analiza wielowymiarowa** - macierz korelacji i wykresy rozrzutu
+4. **Regresja liniowa wieloraka** - modelowanie wpływu wielu zmiennych na odsetek palących
+
+Analiza pozwala na identyfikację zależności między polityką fiskalną (akcyza) a wskaźnikami zdrowotnymi i ekonomicznymi.
+
 
 ## Średnie wydatki
 ```{r wyswietlanie2 , include=TRUE}
@@ -212,5 +358,66 @@ kable(results_df, caption = "Wyniki regresji liniowej - Czynniki wpływające na
   row_spec(0, background = "#e74c3c", color = "white") %>%
   row_spec(2:4, background = "#fdf2f2")
 ```
+
+
+
+## Wyniki analizy
+
+```{r wyniki_analizy, echo=FALSE}
+# Podsumowanie kluczowych wyników
+key_results <- data.frame(
+  Wskaźnik = c("Korelacja akcyza-PKB", "Korelacja akcyza-palenie", "Korelacja PKB-palenie", 
+               "Korelacja wydatki medyczne-palenie", "Wyjaśniona wariancja modelu"),
+  Wartość = c(round(cor1, 3), round(cor2, 3), round(cor3, 3), 
+              round(cor4, 3), round(summary(model)$r.squared, 3)),
+  Interpretacja = c("Brak silnej zależności", "Umiarkowana ujemna korelacja", 
+                    "Słaba ujemna korelacja", "Brak korelacji", "Model tłumaczy 34% wariancji")
+)
+
+kable(key_results, caption = "Kluczowe wyniki analizy") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+## Wnioski z analizy
+
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0;">
+
+<div style="background: #e8f4fd; padding: 15px; border-radius: 8px; border-left: 4px solid #3498db;">
+
+###  Polityka akcyzowa
+Wysokość akcyzy **nie koreluje silnie** z zamożnością kraju (r = `r round(cor1, 2)`), co sugeruje, że decyzje podatkowe są niezależne od poziomu rozwoju gospodarczego.
+</div>
+
+<div style="background: #e8f6f3; padding: 15px; border-radius: 8px; border-left: 4px solid #27ae60;">
+
+### Efekt odstraszający
+Istnieje **umiarkowana ujemna korelacja** między akcyzą a odsetkiem palących (r = `r round(cor2, 2)`), co potwierdza, że wyższe ceny mogą zniechęcać do palenia.
+</div>
+
+<div style="background: #fef9e7; padding: 15px; border-radius: 8px; border-left: 4px solid #f39c12;">
+
+###  Zamożność a zdrowie
+Bogatsze kraje mają **nieco niższy odsetek palących** (r = `r round(cor3, 2)`), co może wskazywać na wyższą świadomość zdrowotną w rozwiniętych społeczeństwach.
+</div>
+
+<div style="background: #fbeeee; padding: 15px; border-radius: 8px; border-left: 4px solid #e74c3c;">
+
+### Wydatki medyczne
+Wydatki medyczne per capita **nie korelują znacząco** z odsetkiem palących (r = `r round(cor4, 2)`), co sugeruje, że same nakłady na służbę zdrowia nie redukują palenia.
+</div>
+
+<div style="background: #f4ecf7; padding: 15px; border-radius: 8px; border-left: 4px solid #8e44ad; grid-column: span 2;">
+
+## Skuteczność modelu
+Model regresji **wyjaśnia około `r round(summary(model)$r.squared * 100, 1)`% wariancji** odsetka palących, co wskazuje na istnienie innych, niewyjaśnionych czynników wpływających na konsumpcję tytoniu.
+</div>
+
+</div>
+
+
+## Kompleksowe podejście
+Skuteczna polityka antytytoniowa powinna **łączyć instrumenty fiskalne** (akcyza) z **działaniami edukacyjnymi** i **programami wsparcia** dla osób chcących rzucić palenie.
+
+## Zróżnicowanie regionalne
+Wysoka zmienność między krajami wskazuje na potrzebę **dostosowania polityki** do specyfiki regionalnej i kulturowej poszczególnych społeczeństw.
 
 

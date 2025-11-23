@@ -4154,9 +4154,73 @@ span.underline{text-decoration: underline;}
 div.column{display: inline-block; vertical-align: top; width: 50%;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 
-  <style type="text/css">slides > slide {background: #eaf3fc !important; color: #00274d; font-family: "Segoe UI", "Helvetica", sans-serif;}slides > slide h1 {color: #003b7a !important;border-bottom: 3px solid #0055aa;padding-bottom: 10px;}slides > slide h2 {color: #0055aa !important;}slides > slide h3 {color: #0055aa !important;}table.table {background-color: white !important;border: 2px solid #0077cc !important;border-radius: 6px;}table.table th {background-color: #0077cc !important;color: white !important;font-weight: bold !important;}table.table td {border: 1px solid #bcdcff !important;}slides > slide ul li {margin-bottom: 8px;font-size: 1.1em;}a {color: #0055aa !important;}a:hover {color: #003b7a !important;}slides > slide:not(.title-slide)::after {content: "Analiza akcyzy — Filip Kasprzycki Mateusz Kaczkowski";position: absolute;bottom: 10px;right: 15px;font-size: 12px;color: #003b7a;opacity: 0.7;}</style>
+  <style type="text/css">slides > slide {background: linear-gradient(135deg, #eaf3fc 0%, #d4e7fa 100%) !important;color: #00274d;font-family: "Segoe UI", "Helvetica", sans-serif;}slides > slide h1 {color: #003b7a !important;border-bottom: 3px solid #0055aa;padding-bottom: 10px;text-align: center;}slides > slide h2 {color: #0055aa !important;border-left: 4px solid #0077cc;padding-left: 15px;}slides > slide h3 {color: #0055aa !important;}pre {background: #f8fbff !important;border: 2px solid #0077cc !important;border-radius: 8px;padding: 15px !important;}code {background: #e6f2ff !important;color: #003b7a !important;padding: 2px 6px !important;border-radius: 4px;}table.table {background-color: white !important;border: 2px solid #0077cc !important;border-radius: 8px;box-shadow: 0 4px 6px rgba(0, 87, 179, 0.1);}table.table th {background: linear-gradient(135deg, #0077cc 0%, #0055aa 100%) !important;color: white !important;font-weight: bold !important;padding: 12px !important;}table.table td {border: 1px solid #bcdcff !important;padding: 10px !important;}slides > slide ul li {margin-bottom: 8px;font-size: 1.1em;line-height: 1.4;}slides > slide ul li::marker {color: #0077cc;}.alert {background: linear-gradient(135deg, #e6f2ff 0%, #d4e7fa 100%);border: 2px solid #0077cc;border-radius: 10px;padding: 20px;margin: 15px 0;}a {color: #0055aa !important;text-decoration: none;font-weight: bold;}a:hover {color: #003b7a !important;text-decoration: underline;}.btn {background: linear-gradient(135deg, #0077cc 0%, #0055aa 100%);color: white !important;padding: 10px 20px;border-radius: 6px;display: inline-block;margin: 5px;}slides > slide:not(.title-slide)::after {content: "Analiza akcyzy — Filip Kasprzycki, Mateusz Kaczkowski";position: absolute;bottom: 10px;right: 15px;font-size: 12px;color: #003b7a;opacity: 0.7;background: rgba(255, 255, 255, 0.8);padding: 5px 10px;border-radius: 4px;}.title-slide {background: linear-gradient(135deg, #003b7a 0%, #0055aa 100%) !important;color: white !important;}.title-slide h1,.title-slide h2,.title-slide h3 {color: white !important;border: none !important;text-align: center;}slides > slide {transition: transform 0.3s ease;}</style>
 
 </head>
 
@@ -4174,9 +4238,75 @@ ul.task-list{list-style: none;}
           </hgroup>
   </slide>
 
-<slide class=""><hgroup><h2>Cel analizy</h2></hgroup><article  id="cel-analizy">
+<slide class=""><hgroup><h2>Cel i zakres badania</h2></hgroup><article  id="cel-i-zakres-badania">
 
-<p>Celem projektu jest analiza zależności między wielkością populacji, PKB, średnimi płacami, wydatkami publicznymi i wpływami z akcyzy</p>
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; border-radius: 10px; text-align: center;">
+<h2 style="margin: 0 0 10px 0;">
+
+Polityka fiskalna a zdrowie w Europie
+
+</h2>
+
+<div style="display: inline-block; text-align: left; background: rgba(255,255,255,0.1); padding: 10px 15px; border-radius: 8px;">
+<strong>Badanie:</strong> WCelem projektu jest analiza zależności między wielkością populacji, PKB, średnimi płacami, wydatkami publicznymi i wpływami z akcyzy z wyrobów tytoniowych<br> <strong>Zakres:</strong> 26 krajów (2019)<br> <strong>Metody:</strong> Analiza korelacji i regresji</div></div>
+
+</article></slide><slide class=""><hgroup><h2>Wykorzystane Pakiety</h2></hgroup><article  id="wykorzystane-pakiety">
+
+<p>library(readxl)</p>
+
+<p>library(dplyr)</p>
+
+<p>library(ggplot2)</p>
+
+<p>library(GGally)</p>
+
+<p>library(rnaturalearth)</p>
+
+<p>library(rnaturalearthdata)</p>
+
+</article></slide><slide class=""><hgroup><h2>Pakiet library(readxl)</h2></hgroup><article  id="pakiet-libraryreadxl">
+
+<p>Autorzy:Hadley Wickham, Jennifer Bryan</p>
+
+<p>Wybrane funkcje:</p>
+
+<p>read_excel( path, – ścieżka do pliku Excel<br/>sheet = NULL, nazwa lub numer arkusza, który chcemy wczytać.<br/>range = NULL,- – zakres komórek (np. &ldquo;A1:D20&rdquo;)<br/>col_names = TRUE, czy pierwsza linia ma być traktowana jako nazwy kolumn<br/>col_types = NULL, - typy kolumn (&ldquo;text&rdquo;, &ldquo;numeric&rdquo;, &ldquo;date&rdquo;, &ldquo;logical&rdquo;)<br/>na = ““, znak oznaczający brak danych<br/>trim_ws = TRUE, usuwa zbędne spacje w komórkach.<br/>skip = 0, liczba wierszy do pominięcia na początku arkusza<br/>n_max = Inf, maksymalna liczba wierszy do wczytania.<br/>)</p>
+
+</article></slide><slide class=""><hgroup><h2>Pakiet library(dplyr)</h2></hgroup><article  id="pakiet-librarydplyr">
+
+<p>Autorzy: Hadley Wickham, Romain François, Lionel Henry, Kirill Müller</p>
+
+<p>Wybrane funkcje:</p>
+
+<p>r filter(.data, …) # filtruje wiersze według warunku<br/>select(.data, …) # wybiera kolumny<br/>mutate(.data, …) # tworzy nowe kolumny<br/>arrange(.data, …) # sortuje wiersze summarise(.data, …) # agreguje dane<br/>group_by(.data, …) # grupuje dane<br/>ungroup(.data) # usuwa grupowanie<br/>rename(.data, …) # zmienia nazwy kolumn<br/>distinct(.data, …) # usuwa duplikaty wierszy<br/></p>
+
+</article></slide><slide class=""><hgroup><h2>Pakiet library(ggplot2)</h2></hgroup><article  id="pakiet-libraryggplot2">
+
+<p>ggplot(data) # inicjuje wykres<br/>aes(x, y, …) # definiuje estetyki (mapowania)<br/>geom_point() # warstwa punktów<br/>geom_line() # warstwa linii<br/>geom_bar() # warstwa słupków<br/>geom_histogram() # warstwa histogramu<br/>facet_wrap(~variable) # panele według zmiennej<br/>labs(title, x, y) # etykiety osi i tytuł<br/>theme_bw() # motyw wykresu<br/>scale_x_continuous() # skala osi X<br/>scale_y_log10() # logarytmiczna skala Y<br/></p>
+
+</article></slide><slide class=""><hgroup><h2>Pakiet library(GGally)</h2></hgroup><article  id="pakiet-libraryggally">
+
+<p>Autorzy: Barret Schloerke, Hadley Wickham</p>
+
+<p>Wybrane funkcje:</p>
+
+<p>r ggpairs(data) # macierz wykresów rozrzutu<br/>ggcorr(data) # macierz korelacji<br/>ggnostic(model) # diagnostyka modelu<br/>ggcoef(model) # wykres współczynników modelu<br/>ggnetwork(network) # wizualizacja sieci<br/>ggsurv(survfit) # krzywe przeżycia<br/>ggtable(data) # tabela jako wykres<br/>theme_grey() # domyślny motyw<br/>wrap(plot, ncol) # opakowuje wiele wykresów<br/></p>
+
+</article></slide><slide class=""><hgroup><h2>Pakiet library(rnaturalearth)</h2></hgroup><article  id="pakiet-libraryrnaturalearth">
+
+<p>Autorzy: Andy South</p>
+
+<p>Wybrane funkcje:</p>
+
+<p>ne_countries(scale) # dane krajów (scale: 10, 50, 110)<br/>ne_states() # dane stanów/prowincji<br/>ne_coastline() # linie brzegowe<br/>ne_download(scale, type) # pobiera dane z Natural Earth<br/>ne_file_name(scale, type) # generuje nazwę pliku<br/>ne_load() # ładuje dane z pliku<br/>ne_bbox() # ramka ograniczająca<br/>ne_find() # znajduje obiekty przestrzenne<br/>ne_clean() # czyści dane przestrzenne<br/></p>
+
+</article></slide><slide class=""><hgroup><h2>Pakiet library(rnaturalearthdata)</h2></hgroup><article  id="pakiet-libraryrnaturalearthdata">
+
+<p>Autorzy: Andy South</p>
+
+<p>Wybrane funkcje:</p>
+
+<p>countries110 # kraje w skali 1:110 milionów<br/>countries50 # kraje w skali 1:50 milionów<br/>countries10 # kraje w skali 1:10 milionów<br/>states50 # stany w skali 1:50 milionów<br/>coastline110 # linie brzegowe 1:110 milionów<br/>lakes110 # jeziora w skali 1:110 milionów<br/>rivers110 # rzeki w skali 1:110 milionów<br/></p>
 
 </article></slide><slide class=""><hgroup><h2>Żródła danych</h2></hgroup><article  id="żródła-danych">
 
@@ -4184,7 +4314,28 @@ ul.task-list{list-style: none;}
 
 <p>-Eurostat (w postaci plików xslx)</p>
 
+<pre class = 'prettyprint lang-r'>dane1 &lt;- read_excel(&quot;Tobacco_consumption_HLTH2022-2.xlsx&quot;, sheet = &quot;T1&quot;)
+OdsetekPalacy &lt;- dane1[, 1:2] %&gt;%
+  arrange(.[[1]]) %&gt;%
+  rename(Country = 1, Smokers = 2)</pre>
+
 <p>-Taxfoundation (pobierane bezpośrednio ze strony)</p>
+
+<pre class = 'prettyprint lang-r'>library(rvest)
+library(dplyr)
+url &lt;- &quot;https://taxfoundation.org/data/all/eu/cigarette-tax-europe-2019/&quot;
+page &lt;- read_html(url)
+dane6 &lt;- page %&gt;% html_table(fill = TRUE)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Informacje teoretyczne o danych</h2></hgroup><article  id="informacje-teoretyczne-o-danych">
+
+<ul>
+<li><strong>Odsetek palących</strong>: Eurostat - dane dotyczące konsumpcji tytoniu w populacji dorosłych</li>
+<li><strong>Dane demograficzne</strong>: Eurostat - liczebność populacji krajów europejskich</li>
+<li><strong>Wskaźniki ekonomiczne</strong>: Eurostat - PKB per capita w USD</li>
+<li><strong>Akcyza tytoniowa</strong>: Tax Foundation - wysokość podatku akcyzowego na paczkę papierosów</li>
+<li><strong>Wydatki medyczne</strong>: Eurostat - całkowite wydatki na ochronę zdrowia w mld</li>
+</ul>
 
 </article></slide><slide class=""><hgroup><h2>Zebrane dane</h2></hgroup><article  id="zebrane-dane">
 
@@ -4496,129 +4647,22 @@ Denmark
 
 </tr>
 
-<tr>
-
-<td style="text-align:left;">
-
-Estonia
-
-</td>
-
-<td style="text-align:right;">
-
-18.9
-
-</td>
-
-<td style="text-align:right;">
-
-1324820
-
-</td>
-
-<td style="text-align:right;">
-
-40300
-
-</td>
-
-<td style="text-align:right;">
-
-2.62
-
-</td>
-
-<td style="text-align:right;">
-
-1892.72
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-Finland
-
-</td>
-
-<td style="text-align:right;">
-
-9.9
-
-</td>
-
-<td style="text-align:right;">
-
-5517920
-
-</td>
-
-<td style="text-align:right;">
-
-41370
-
-</td>
-
-<td style="text-align:right;">
-
-4.73
-
-</td>
-
-<td style="text-align:right;">
-
-21998.37
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-France
-
-</td>
-
-<td style="text-align:right;">
-
-17.8
-
-</td>
-
-<td style="text-align:right;">
-
-67028000
-
-</td>
-
-<td style="text-align:right;">
-
-25520
-
-</td>
-
-<td style="text-align:right;">
-
-5.24
-
-</td>
-
-<td style="text-align:right;">
-
-271691.66
-
-</td>
-
-</tr>
-
 </tbody>
 
 </table>
+
+</article></slide><slide class=""><hgroup><h2>Metoda analizy</h2></hgroup><article  id="metoda-analizy">
+
+<p>W analizie wykorzystano następujące metody statystyczne:</p>
+
+<ol>
+<li><strong>Analiza korelacji Pearsona</strong> - badanie liniowych zależności między zmiennymi</li>
+<li><strong>Wizualizacja przestrzenna</strong> - mapy cieplne pokazujące rozkład geograficzny zmiennych</li>
+<li><strong>Analiza wielowymiarowa</strong> - macierz korelacji i wykresy rozrzutu</li>
+<li><strong>Regresja liniowa wieloraka</strong> - modelowanie wpływu wielu zmiennych na odsetek palących</li>
+</ol>
+
+<p>Analiza pozwala na identyfikację zależności między polityką fiskalną (akcyza) a wskaźnikami zdrowotnymi i ekonomicznymi.</p>
 
 </article></slide><slide class=""><hgroup><h2>Średnie wydatki</h2></hgroup><article  id="średnie-wydatki">
 
@@ -5254,7 +5298,201 @@ Wydatki medyczne per capita
 
 </tbody>
 
-</table></article></slide>
+</table>
+
+</article></slide><slide class=""><hgroup><h2>Wyniki analizy</h2></hgroup><article  id="wyniki-analizy">
+
+<table class="table table-striped table-hover" style="color: black; margin-left: auto; margin-right: auto;">
+
+<caption>
+
+Kluczowe wyniki analizy
+
+</caption>
+
+<thead>
+
+<tr>
+
+<th style="text-align:left;">
+
+Wskaźnik
+
+</th>
+
+<th style="text-align:right;">
+
+Wartość
+
+</th>
+
+<th style="text-align:left;">
+
+Interpretacja
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:left;">
+
+Korelacja akcyza-PKB
+
+</td>
+
+<td style="text-align:right;">
+
+-0.065
+
+</td>
+
+<td style="text-align:left;">
+
+Brak silnej zależności
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Korelacja akcyza-palenie
+
+</td>
+
+<td style="text-align:right;">
+
+-0.405
+
+</td>
+
+<td style="text-align:left;">
+
+Umiarkowana ujemna korelacja
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Korelacja PKB-palenie
+
+</td>
+
+<td style="text-align:right;">
+
+0.182
+
+</td>
+
+<td style="text-align:left;">
+
+Słaba ujemna korelacja
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Korelacja wydatki medyczne-palenie
+
+</td>
+
+<td style="text-align:right;">
+
+-0.637
+
+</td>
+
+<td style="text-align:left;">
+
+Brak korelacji
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+Wyjaśniona wariancja modelu
+
+</td>
+
+<td style="text-align:right;">
+
+0.434
+
+</td>
+
+<td style="text-align:left;">
+
+Model tłumaczy 34% wariancji
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</article></slide><slide class=""><hgroup><h2>Wnioski z analizy</h2></hgroup><article  id="wnioski-z-analizy">
+
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0;">
+<div style="background: #e8f4fd; padding: 15px; border-radius: 8px; border-left: 4px solid #3498db;">
+<h3>Polityka akcyzowa</h3>
+
+<p>Wysokość akcyzy <strong>nie koreluje silnie</strong> z zamożnością kraju (r = -0.07), co sugeruje, że decyzje podatkowe są niezależne od poziomu rozwoju gospodarczego.</p></div>
+
+<div style="background: #e8f6f3; padding: 15px; border-radius: 8px; border-left: 4px solid #27ae60;">
+<h3>Efekt odstraszający</h3>
+
+<p>Istnieje <strong>umiarkowana ujemna korelacja</strong> między akcyzą a odsetkiem palących (r = -0.4), co potwierdza, że wyższe ceny mogą zniechęcać do palenia.</p></div>
+
+<div style="background: #fef9e7; padding: 15px; border-radius: 8px; border-left: 4px solid #f39c12;">
+<h3>Zamożność a zdrowie</h3>
+
+<p>Bogatsze kraje mają <strong>nieco niższy odsetek palących</strong> (r = 0.18), co może wskazywać na wyższą świadomość zdrowotną w rozwiniętych społeczeństwach.</p></div>
+
+<div style="background: #fbeeee; padding: 15px; border-radius: 8px; border-left: 4px solid #e74c3c;">
+<h3>Wydatki medyczne</h3>
+
+<p>Wydatki medyczne per capita <strong>nie korelują znacząco</strong> z odsetkiem palących (r = -0.64), co sugeruje, że same nakłady na służbę zdrowia nie redukują palenia.</p></div>
+
+<div style="background: #f4ecf7; padding: 15px; border-radius: 8px; border-left: 4px solid #8e44ad; grid-column: span 2;">
+</article></slide><slide class=""><hgroup><h2>Skuteczność modelu</h2></hgroup><article  id="skuteczność-modelu">
+
+<p>Model regresji <strong>wyjaśnia około 43.4% wariancji</strong> odsetka palących, co wskazuje na istnienie innych, niewyjaśnionych czynników wpływających na konsumpcję tytoniu.</p></div></div>
+
+</article></slide><slide class=""><hgroup><h2>Kompleksowe podejście</h2></hgroup><article  id="kompleksowe-podejście">
+
+<p>Skuteczna polityka antytytoniowa powinna <strong>łączyć instrumenty fiskalne</strong> (akcyza) z <strong>działaniami edukacyjnymi</strong> i <strong>programami wsparcia</strong> dla osób chcących rzucić palenie.</p>
+
+</article></slide><slide class=""><hgroup><h2>Zróżnicowanie regionalne</h2></hgroup><article  id="zróżnicowanie-regionalne">
+
+<p>Wysoka zmienność między krajami wskazuje na potrzebę <strong>dostosowania polityki</strong> do specyfiki regionalnej i kulturowej poszczególnych społeczeństw.</p>
+
+</article></slide><slide class=""><hgroup><h2>Dalsze badania</h2></hgroup><article  id="dalsze-badania">
+
+Warto zbadać wpływ <strong>kampanii społecznych</strong>, <strong>regulacji marketingowych</strong> i <strong>dostępu do programów leczenia</strong> uzależnienia od tytoniu.
+
+</div></article></slide>
 
 
   <slide class="backdrop"></slide>

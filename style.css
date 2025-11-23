@@ -1,7 +1,7 @@
 /* --- TŁO PREZENTACJI --- */
 slides > slide {
-    background: #eaf3fc !important;   /* jasne niebieskie tło */
-    color: #00274d;                   /* ciemny granatowy tekst */
+    background: linear-gradient(135deg, #eaf3fc 0%, #d4e7fa 100%) !important;
+    color: #00274d;
     font-family: "Segoe UI", "Helvetica", sans-serif;
 }
 
@@ -10,56 +10,125 @@ slides > slide h1 {
     color: #003b7a !important;
     border-bottom: 3px solid #0055aa;
     padding-bottom: 10px;
+    text-align: center;
 }
 
 slides > slide h2 {
     color: #0055aa !important;
+    border-left: 4px solid #0077cc;
+    padding-left: 15px;
 }
 
 slides > slide h3 {
     color: #0055aa !important;
 }
 
+/* --- BLOKI KODU --- */
+pre {
+    background: #f8fbff !important;
+    border: 2px solid #0077cc !important;
+    border-radius: 8px;
+    padding: 15px !important;
+}
+
+code {
+    background: #e6f2ff !important;
+    color: #003b7a !important;
+    padding: 2px 6px !important;
+    border-radius: 4px;
+}
+
 /* --- TABELKI KABLE --- */
 table.table {
     background-color: white !important;
     border: 2px solid #0077cc !important;
-    border-radius: 6px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 87, 179, 0.1);
 }
 
 table.table th {
-    background-color: #0077cc !important;
+    background: linear-gradient(135deg, #0077cc 0%, #0055aa 100%) !important;
     color: white !important;
     font-weight: bold !important;
+    padding: 12px !important;
 }
 
 table.table td {
     border: 1px solid #bcdcff !important;
+    padding: 10px !important;
 }
 
 /* --- LISTY --- */
 slides > slide ul li {
     margin-bottom: 8px;
     font-size: 1.1em;
+    line-height: 1.4;
+}
+
+slides > slide ul li::marker {
+    color: #0077cc;
+}
+
+/* --- RAMKI I KONTENERY --- */
+.alert {
+    background: linear-gradient(135deg, #e6f2ff 0%, #d4e7fa 100%);
+    border: 2px solid #0077cc;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 15px 0;
 }
 
 /* --- KOLORY LINKÓW --- */
 a {
     color: #0055aa !important;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 a:hover {
     color: #003b7a !important;
+    text-decoration: underline;
 }
 
-/* --- STOPKA (opcjonalna) --- */
+/* --- PRZYCISKI --- */
+.btn {
+    background: linear-gradient(135deg, #0077cc 0%, #0055aa 100%);
+    color: white !important;
+    padding: 10px 20px;
+    border-radius: 6px;
+    display: inline-block;
+    margin: 5px;
+}
+
+/* --- STOPKA --- */
 slides > slide:not(.title-slide)::after {
-    content: "Analiza akcyzy — Filip Kasprzycki Mateusz Kaczkowski";
+    content: "Analiza akcyzy — Filip Kasprzycki, Mateusz Kaczkowski";
     position: absolute;
     bottom: 10px;
     right: 15px;
     font-size: 12px;
     color: #003b7a;
     opacity: 0.7;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 5px 10px;
+    border-radius: 4px;
 }
 
+/* --- SLIDE TYTUŁOWY --- */
+.title-slide {
+    background: linear-gradient(135deg, #003b7a 0%, #0055aa 100%) !important;
+    color: white !important;
+}
+
+.title-slide h1,
+.title-slide h2,
+.title-slide h3 {
+    color: white !important;
+    border: none !important;
+    text-align: center;
+}
+
+/* --- ANIMACJE (opcjonalne) --- */
+slides > slide {
+    transition: transform 0.3s ease;
+}
