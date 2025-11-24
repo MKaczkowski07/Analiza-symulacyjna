@@ -1,5 +1,5 @@
 ---
-title: "Analiza wpływu wysokości akcyzy na wyroby tytoniowe na wydatki medyczne i pkb"
+title: "Analiza wpływu wysokości akcyzy na wyroby tytoniowe na wydatki medyczne i PKB"
 author: "Filip Kasprzycki i Mateusz Kaczkowski"
 date: "2025-11-16"
 output:
@@ -74,7 +74,7 @@ cor2 <- cor(dane_final$Akcyza, dane_final$Smokers, use="complete.obs")
 ```
 ## Cel i zakres badania
 
-<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; border-radius: 10px; text-align: center;"><h2 style="margin: 0 0 10px 0;">Polityka fiskalna a zdrowie w Europie</h2><div style="display: inline-block; text-align: left; background: rgba(255,255,255,0.1); padding: 10px 15px; border-radius: 8px;"> <strong>Badanie:</strong> WCelem projektu jest analiza zależności między wielkością populacji, PKB, średnimi płacami, wydatkami publicznymi i wpływami z akcyzy z wyrobów tytoniowych<br> <strong>Zakres:</strong> `r nrow(dane_final)` krajów (2019)<br> <strong>Metody:</strong> Analiza korelacji i regresji </div> </div>
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; border-radius: 10px; text-align: center;"><h2 style="margin: 0 0 10px 0;">Polityka fiskalna a zdrowie w Europie</h2><div style="display: inline-block; text-align: left; background: rgba(255,255,255,0.1); padding: 10px 15px; border-radius: 8px;"> <strong>Badanie:</strong> Celem projektu jest analiza zależności między wielkością populacji, PKB, średnimi płacami, wydatkami publicznymi i wpływami z akcyzy z wyrobów tytoniowych<br> <strong>Zakres:</strong> `r nrow(dane_final)` krajów (2019)<br> <strong>Metody:</strong> Analiza korelacji i regresji </div> </div>
 
 ## Wykorzystane Pakiety
 
@@ -188,11 +188,11 @@ rivers110                 # rzeki w skali 1:110 milionów\
 
 
 
-## Żródła danych
+## Źródła danych
 
-Żródła danych:
+Źródła danych:
 
--Eurostat (w postaci plików xslx)
+-Eurostat (w postaci plików xlsx)
 ```r
 dane1 <- read_excel("Tobacco_consumption_HLTH2022-2.xlsx", sheet = "T1")
 OdsetekPalacy <- dane1[, 1:2] %>%
@@ -216,7 +216,7 @@ dane6 <- page %>% html_table(fill = TRUE)
 - **Dane demograficzne**: Eurostat - liczebność populacji krajów europejskich
 - **Wskaźniki ekonomiczne**: Eurostat - PKB per capita w USD
 - **Akcyza tytoniowa**: Tax Foundation - wysokość podatku akcyzowego na paczkę papierosów
-- **Wydatki medyczne**: Eurostat - całkowite wydatki na ochronę zdrowia w mld
+- **Wydatki medyczne**: Eurostat - całkowite wydatki na ochronę zdrowia w mln 
 
 
 ## Zebrane dane
@@ -230,7 +230,7 @@ Zawieraja następujące elementy
 
 -PKB danego kraju
 
--Wysokośc akcyzy nakładanej na paczke papierosów
+-Wysokość akcyzy nakładanej na paczke papierosów
 
 -Wydatki roczne w mln na opiekę medyczną
 
@@ -378,29 +378,69 @@ Istnieje **umiarkowana ujemna korelacja** między akcyzą a odsetkiem palących 
 
 <div style="background: #fef9e7; padding: 15px; border-radius: 8px; border-left: 4px solid #f39c12;">
 
-###  Zamożność a zdrowie
-Bogatsze kraje mają **nieco niższy odsetek palących** (r = `r round(cor3, 2)`), co może wskazywać na wyższą świadomość zdrowotną w rozwiniętych społeczeństwach.
+### Zamożność a zdrowie
+Bogatsze kraje mają **nieco niższy odsetek palących** (r = `r round(cor3, 2)`), co może wynikać z wyższej świadomości zdrowotnej.
 </div>
 
 <div style="background: #fbeeee; padding: 15px; border-radius: 8px; border-left: 4px solid #e74c3c;">
 
 ### Wydatki medyczne
-Wydatki medyczne per capita **korelują ** z odsetkiem palących (r = `r round(cor4, 2)`).
+Wydatki medyczne per capita korelują z odsetkiem palących. (r = `r round(cor4, 2)`).
 </div>
 
 <div style="background: #f4ecf7; padding: 15px; border-radius: 8px; border-left: 4px solid #8e44ad; grid-column: span 2;">
 
-## Skuteczność modelu
-Model regresji **wyjaśnia około `r round(summary(model)$r.squared * 100, 1)`% wariancji** odsetka palących, co wskazuje na istnienie innych, niewyjaśnionych czynników wpływających na konsumpcję tytoniu.
-</div>
+## Ograniczenia analizy
+<div style="font-size: 25px;">
+- Dane pochodzą z różnych źródeł (Eurostat, Tax Foundation), co może powodować różnice w metodologii pomiaru.
+- Analiza opiera się na jednym roku (2019), przez co nie uwzględnia trendów czasowych ani efektów opóźnień.
+- Nie uwzględniono czynników społecznych i kulturowych (np. edukacji, kampanii antynikotynowych), które również wpływają na odsetek palących.
+- Wydatki medyczne i akcyza są wartościami zagregowanymi na poziomie kraju - nie analizujemy struktury wydatków.
+- Model regresji wielorakiej wyjaśnia tylko część zmienności (≈ `r round(summary(model)$r.squared * 100,1)`%), co oznacza istnienie innych silnych determinant palenia.
+
 
 </div>
 
+</div>
 
-## Kompleksowe podejście
-Skuteczna polityka antytytoniowa powinna **łączyć instrumenty fiskalne** (akcyza) z **działaniami edukacyjnymi** i **programami wsparcia** dla osób chcących rzucić palenie.
 
-## Zróżnicowanie regionalne
-Wysoka zmienność między krajami wskazuje na potrzebę **dostosowania polityki** do specyfiki regionalnej i kulturowej poszczególnych społeczeństw.
+## Kompleksowe podejście i zróżnicowanie regionalne
+
+Skuteczna polityka antytytoniowa powinna łączyć **instrumenty fiskalne** (akcyza),
+**działania edukacyjne** oraz **programy wsparcia** dla osób chcących rzucić palenie.
+
+Duże różnice regionalne w Europie wskazują jednak, że polityka zdrowotna
+musi być **dostosowana do specyfiki kulturowej i społecznej** poszczególnych krajów.
+
+
+## Podsumowanie i zakończenie
+
+<div style="text-align: center; padding: 40px 20px;">
+
+<div style="
+     display: inline-block;
+     background: linear-gradient(135deg, #6a89cc, #b8e994);
+     padding: 40px 50px;
+     border-radius: 20px;
+     box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+     color: #003366;
+     font-size: 26px;
+     font-weight: bold;">
+     
+Dziękujemy za uwagę!  
+<br>
+<br>
+Analiza zapisów akcyzowych, zachowań zdrowotnych i wskaźników ekonomicznych  
+pokazuje, że polityka fiskalna może odgrywać kluczową rolę w kształtowaniu zdrowia publicznego.  
+
+</div>
+
+<br><br>
+
+<div style="font-size: 18px; color: #444;">
+Filip Kasprzycki &nbsp;•&nbsp; Mateusz Kaczkowski  
+</div>
+
+</div>
 
 
