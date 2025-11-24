@@ -360,23 +360,6 @@ kable(results_df, caption = "Wyniki regresji liniowej - Czynniki wpływające na
 ```
 
 
-
-## Wyniki analizy
-
-```{r wyniki_analizy, echo=FALSE}
-# Podsumowanie kluczowych wyników
-key_results <- data.frame(
-  Wskaźnik = c("Korelacja akcyza-PKB", "Korelacja akcyza-palenie", "Korelacja PKB-palenie", 
-               "Korelacja wydatki medyczne-palenie", "Wyjaśniona wariancja modelu"),
-  Wartość = c(round(cor1, 3), round(cor2, 3), round(cor3, 3), 
-              round(cor4, 3), round(summary(model)$r.squared, 3)),
-  Interpretacja = c("Brak silnej zależności", "Umiarkowana ujemna korelacja", 
-                    "Słaba ujemna korelacja", "Brak korelacji", "Model tłumaczy 34% wariancji")
-)
-
-kable(key_results, caption = "Kluczowe wyniki analizy") %>%
-  kable_styling(bootstrap_options = c("striped", "hover"))
-```
 ## Wnioski z analizy
 
 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0;">
@@ -402,7 +385,7 @@ Bogatsze kraje mają **nieco niższy odsetek palących** (r = `r round(cor3, 2)`
 <div style="background: #fbeeee; padding: 15px; border-radius: 8px; border-left: 4px solid #e74c3c;">
 
 ### Wydatki medyczne
-Wydatki medyczne per capita **nie korelują znacząco** z odsetkiem palących (r = `r round(cor4, 2)`), co sugeruje, że same nakłady na służbę zdrowia nie redukują palenia.
+Wydatki medyczne per capita **korelują ** z odsetkiem palących (r = `r round(cor4, 2)`).
 </div>
 
 <div style="background: #f4ecf7; padding: 15px; border-radius: 8px; border-left: 4px solid #8e44ad; grid-column: span 2;">
